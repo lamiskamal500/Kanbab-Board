@@ -75,11 +75,6 @@ You are required to use Tailwind CSS for styling throughout the project. Please 
    - Style the member form, card components, and board using **Tailwind CSS**.
    - Ensure the page has a clean and user-friendly design, with a focus on usability and aesthetics.
 
-## Review Interview
-
-Once we have received your repository we will organize a follow-up interview to discuss your solution.
-
-If you don't have time, that's fine. During the interview, we will discuss strategies that you might have used to achieve these.
 
 The final design of the board should look like this:
 ![final-board](public/final-board.png)
