@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { v4 as uuidv4 } from "uuid";
 
 interface Card {
-  id: string; // Change id type to string if using UUID
+  id: string;
   title: string;
   name: string;
   age: string;
@@ -31,12 +31,12 @@ const boardSlice = createSlice({
   initialState,
   reducers: {
     setCardUnclaimed: (state, action: PayloadAction<Omit<Card, "id">>) => {
-      const newCard: Card = { id: uuidv4(), ...action.payload }; // Generate a unique ID
+      const newCard: Card = { id: uuidv4(), ...action.payload };
       state.unclaimed.push(newCard);
       localStorage.setItem("unclaimed", JSON.stringify(state.unclaimed));
     },
     setCardFirstContact: (state, action: PayloadAction<Omit<Card, "id">>) => {
-      const newCard: Card = { id: uuidv4(), ...action.payload }; // Generate a unique ID
+      const newCard: Card = { id: uuidv4(), ...action.payload };
       state.firstContact.push(newCard);
       localStorage.setItem("firstContact", JSON.stringify(state.firstContact));
     },
@@ -44,7 +44,7 @@ const boardSlice = createSlice({
       state,
       action: PayloadAction<Omit<Card, "id">>
     ) => {
-      const newCard: Card = { id: uuidv4(), ...action.payload }; // Generate a unique ID
+      const newCard: Card = { id: uuidv4(), ...action.payload };
       state.preparingWorkOffer.push(newCard);
       localStorage.setItem(
         "preparingWorkOffer",
@@ -55,7 +55,7 @@ const boardSlice = createSlice({
       state,
       action: PayloadAction<Omit<Card, "id">>
     ) => {
-      const newCard: Card = { id: uuidv4(), ...action.payload }; // Generate a unique ID
+      const newCard: Card = { id: uuidv4(), ...action.payload };
       state.sendToTherapist.push(newCard);
       localStorage.setItem(
         "sendToTherapist",

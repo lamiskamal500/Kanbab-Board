@@ -46,7 +46,7 @@ const Dropdown: React.FC<DropdownProps> = ({
   return (
     <div className="relative inline-block" ref={dropdownRef}>
       <button
-        className="w-[110px] px-1 text-left border border-blue-500 text-blue-500 bg-transparent rounded-md shadow-md transition duration-200 ease-in-out 
+        className="w-[110px] px-1 py-0.5 text-left border border-blue-500 text-blue-500 bg-transparent rounded-md shadow-md transition duration-200 ease-in-out 
        focus:outline-none focus:ring-2 focus:ring-blue-300 text-[11px] font-semibold"
         onClick={toggleDropdown}
       >

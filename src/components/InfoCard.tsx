@@ -5,8 +5,9 @@ import editIcon from "../assets/edit.png";
 import deleteIcon from "../assets/delete.png";
 import readIcon from "../assets/eye.png";
 import IconButton from "./IconButton";
-import CardDetailModal from "./CardDetailModal"; // Import the modal
+import CardDetailModal from "./CardDetailModal";
 import EditModal from "./EditModal";
+import { useDrag } from "react-dnd";
 import {
   setCardFirstContact,
   setCardUnclaimed,
@@ -42,7 +43,18 @@ const InfoCard: React.FC<InfoCardProps> = ({
   const [editModal, setEditModal] = useState(false);
 
   let options: string[];
-
+  const [{ isDragging }, drag] = useDrag(() => ({
+    type: "CARD",
+    item: { id, status, title, age, email, phone, name },
+    end: (item, monitor) => {
+      if (monitor.didDrop()) {
+        handleDelete();
+      }
+    },
+    collect: (monitor) => ({
+      isDragging: !!monitor.isDragging(),
+    }),
+  }));
   switch (status) {
     case "Unclaimed":
       options = ["First Contact", "Work Offer", "Send to Therapist"];
@@ -119,26 +131,34 @@ const InfoCard: React.FC<InfoCardProps> = ({
   const closeModal = () => setIsModalOpen(false);
 
   return (
-    <div className="flex flex-col gap-1 bg-white p-4 rounded-lg w-full mt-2">
-      <div className="flex flex-row justify-between">
-        <div className="text-gray-700 font-bold text-[18px]">{title}</div>
-        <div className="text-gray-100 font-semibold text-[14px]">{age} yo</div>
-      </div>
-      <div className="text-gray-700 text-[14px] font-semibold ">{email}</div>
-      <div className="text-gray-100 text-[14px] font-semibold">{phone}</div>
-      <div className="flex flex-row justify-between items-center">
-        <Dropdown options={options} onSelect={handleSelect} />
-        <div className="flex flex-row gap-1 ">
-          <IconButton
-            icon={editIcon}
-            alt="Edit"
-            onClick={() => setEditModal(true)}
-          />
-          <IconButton icon={readIcon} alt="View" onClick={openModal} />
-          <IconButton icon={deleteIcon} alt="Delete" onClick={handleDelete} />
+    <div>
+      <div
+        ref={drag}
+        className={`flex flex-col gap-1 bg-white p-4 rounded-lg w-full mt-2 ${
+          isDragging ? "opacity-50 cursor-grabbing" : "cursor-grab"
+        }`}
+      >
+        <div className="flex flex-row justify-between">
+          <div className="text-gray-700 font-bold text-[18px]">{title}</div>
+          <div className="text-gray-100 font-semibold text-[14px]">
+            {age} yo
+          </div>
+        </div>
+        <div className="text-gray-700 text-[14px] font-semibold ">{email}</div>
+        <div className="text-gray-100 text-[14px] font-semibold">{phone}</div>
+        <div className="flex flex-row justify-between items-center">
+          <Dropdown options={options} onSelect={handleSelect} />
+          <div className="flex flex-row gap-1 ">
+            <IconButton
+              icon={editIcon}
+              alt="Edit"
+              onClick={() => setEditModal(true)}
+            />
+            <IconButton icon={readIcon} alt="View" onClick={openModal} />
+            <IconButton icon={deleteIcon} alt="Delete" onClick={handleDelete} />
+          </div>
         </div>
       </div>
-
       <CardDetailModal
         isOpen={isModalOpen}
         onClose={closeModal}
