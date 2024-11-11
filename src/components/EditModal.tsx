@@ -56,6 +56,7 @@ const EditModal: React.FC<EditModalProps> = ({
       onClose();
       resetForm();
     },
+    enableReinitialize: true,
     validateOnChange: true,
     validateOnBlur: true,
   });
